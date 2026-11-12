@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#131622"><title>伪人守卫 · Imposter Guard</title>
+<style>
+:root{color-scheme:dark;--bg:#131622;--card:#1c2030;--line:#38394c;--muted:#abb1c7;--ink:#f7f2ed;--yellow:#ffd37a;--teal:#8df1cf;--pink:#ffa7aa;font-family:Consolas,"Courier New",monospace}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:radial-gradient(ellipse at 50% 0,#282239,transparent 56%),var(--bg)}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid white;outline-offset:4px}[hidden]{display:none!important}.shell{max-width:1050px;margin:auto;padding:0 28px 40px}header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:19px 0;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px;color:var(--yellow);font:700 23px "Arial Narrow",Arial,sans-serif;letter-spacing:1px}.logo{display:grid;place-items:center;width:34px;height:34px;border:1px solid #665747;background:#302839;border-radius:8px}.toggle{color:var(--ink);background:#242737;border:1px solid #56556b;padding:9px 12px;border-radius:8px;font-size:12px}.toggle[aria-pressed=true]{color:#141923;background:var(--yellow)}.hero{margin:28px 0 22px}.eyebrow,.label{font-size:11px;color:var(--yellow);letter-spacing:.14em;font-weight:600}.hero h1{font:800 56px/.95 "Arial Narrow",Arial,sans-serif;font:800 clamp(45px,8vw,86px)/.95 "Arial Narrow",Arial,sans-serif;letter-spacing:.025em;margin:7px 0 11px}.subtitle{color:var(--muted);font-size:13px}.daybar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.day{border:1px solid var(--line);background:#1a1d2c;border-radius:9px;padding:10px 14px;color:var(--muted);display:flex;justify-content:space-between;gap:5px;font-size:11px}.day strong{font-size:13px;color:var(--ink)}.day.active{border-color:#ad8557;background:#362d36}.day.done{border-color:#538779}.desk{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:0 18px 48px #090a135c}.deskhead{display:flex;justify-content:space-between;gap:8px;padding:13px 19px;background:#252839;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted)}.deskhead strong{color:var(--teal)}.work{display:grid;grid-template-columns:minmax(210px,33%) 1fr}.photo{padding:18px;border-right:1px solid var(--line);background:#191c2a}.frame{position:relative;border:1px solid #4a4760;border-radius:9px;overflow:hidden;background:#302b42}.frame canvas{width:100%;height:auto;display:block;aspect-ratio:1.1}.frame:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 4px,#0b0c1716 5px 6px)}.photo .label{margin:0 0 9px}.idline{margin:10px 0 0;color:var(--muted);font-size:11px}.main{padding:19px 22px}.rules{margin:0 0 13px;color:var(--muted);font-size:12px;line-height:1.65}.entry{margin:0 0 11px}.chinese{display:block;font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",Arial,sans-serif;color:var(--ink);line-height:2.1}.chinese ruby{white-space:nowrap}rt{font-family:Consolas,"Courier New",monospace;font-size:.53em;color:var(--yellow);font-weight:500}.statement{background:#26283a;border:1px solid #46445c;border-left:3px solid var(--yellow);border-radius:8px;padding:10px 13px;margin:11px 0 13px}.statement .chinese{font-size:22px;font-size:clamp(19px,3vw,25px);font-weight:650;margin-top:4px}.entry .chinese,.feedback .chinese{font-size:17px}.translation{display:none;color:#c1c8dc;font-size:12px;line-height:1.55;margin-top:4px}body.show-en .translation{display:block}.actions{display:flex;flex-wrap:wrap;gap:10px}.action{padding:10px 14px;min-height:42px;border-radius:8px;border:1px solid;font-size:12px;font-weight:600}.allow{background:#203832;color:var(--teal);border-color:#528777}.deny{background:#392630;color:var(--pink);border-color:#89535f}.next{background:var(--yellow);color:#1d1b23;border-color:var(--yellow)}.action:hover:not(:disabled){filter:brightness(1.2)}.action:disabled{opacity:.45;cursor:default}.feedback{margin:12px 0;padding:9px 12px;border-radius:7px;background:#151927;border-left:3px solid var(--pink);font-size:12px;line-height:1.55}.feedback.good{border-color:var(--teal)}.feedback strong{color:var(--yellow)}.bottom{display:flex;justify-content:space-between;gap:8px;margin-top:13px;color:var(--muted);font-size:11px}.progress{height:4px;background:#39364c}.progress span{display:block;height:100%;background:var(--teal);transition:width .25s}.summary{padding:24px}.summary h2{margin:0 0 8px;font:700 38px "Arial Narrow",Arial,sans-serif}.summary p{color:var(--muted);line-height:1.65}.summary .actions{margin-top:15px}.review{margin:15px 0;line-height:1.75}.review summary{cursor:pointer;color:var(--yellow);font-size:13px}.review p{margin:8px 0}.support{display:flex;gap:22px;align-items:start;flex-wrap:wrap}.support .review{margin-bottom:0}.support .review[open]{flex-basis:100%}@media(max-width:660px){.shell{padding:0 13px 22px}.hero{margin:22px 0 15px}.work{grid-template-columns:1fr}.photo{display:grid;grid-template-columns:minmax(120px,44%) 1fr;gap:8px 13px;border-right:0;border-bottom:1px solid var(--line);padding:12px}.photo .label{grid-column:2;grid-row:1;margin:0;align-self:end}.frame{grid-column:1;grid-row:1/3}.idline{margin:0;grid-column:2}.main{padding:14px}.day{display:grid;padding:8px}.deskhead{padding:10px}.brand{font-size:19px}}
+
+.briefing{padding:24px;max-width:780px}.briefing h2{margin:0 0 12px;font:700 37px "Arial Narrow",Arial,sans-serif}.briefing ol{padding-left:24px;line-height:1.65;color:var(--muted);margin:0 0 19px}.briefing li{padding:4px 0}.briefing b{color:var(--ink)}.hint-note{color:var(--yellow);font-size:12px;line-height:1.5;margin:0 0 12px}.intrusion{color:var(--pink);font-weight:700}.summary .intrusion{color:var(--pink)}.summary h2:focus,.briefing h2:focus{outline:none}
+
+.name-row{display:flex;flex-wrap:wrap;align-items:end;gap:12px}.name-field{display:grid;gap:6px}.name-field input{font:inherit;color:var(--ink);background:#141725;border:1px solid #666478;border-radius:8px;padding:10px 12px;min-height:42px;max-width:100%}.name-field input:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.boss{margin-top:18px}.boss-body{padding:18px;padding:clamp(14px,3vw,25px)}.boss h2{margin:0 0 7px;font:700 38px "Arial Narrow",Arial,sans-serif}.boss h2:focus{outline:none}.boss p{color:var(--muted);line-height:1.55}.match-board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:60px;gap:clamp(42px,17vw,180px);position:relative;margin:16px 0}.match-col{display:grid;gap:8px;z-index:1}.match-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.match-lines line{stroke-width:2.5}.match-card,.word-card{background:#292c40;color:var(--ink);border:1px solid #535571;border-radius:8px;padding:7px 10px;min-height:49px;min-width:0;overflow-wrap:anywhere}.match-card[aria-pressed=true],.match-card.linked{border-color:var(--yellow)}.match-card[aria-pressed=true]{background:#463748}.match-card.wrong{border-color:var(--pink);background:#392630}.match-card .chinese,.word-card .chinese{font-size:17px}.word-card:disabled{opacity:.35}.tray,.word-pool{display:flex;flex-wrap:wrap;gap:8px;padding:10px;border-radius:9px;margin:9px 0 14px}.tray{background:#141725;border:1px dashed #77728b;min-height:73px}.tray:empty:before{content:"Tap words below to build the sentence here";align-self:center;color:var(--muted);font-size:12px}.word-pool{padding:0}.boss-feedback{min-height:1.6em;font-size:13px}.victory{text-align:center;padding:36px 18px}.victory .cup{font-size:62px;margin:0 0 8px}.victory h2{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",Arial,sans-serif;font-size:28px;font-size:clamp(24px,5vw,44px);overflow-wrap:anywhere}.victory .actions{justify-content:center}.toggle:disabled{opacity:.45;cursor:default}
+</style></head><body><div class="shell">
+<header><div class="brand"><span class="logo" aria-hidden="true">◈</span> CLASSROOM CHECKPOINT</div><button id="english" class="toggle" aria-pressed="false">English hints <span>OFF</span></button></header>
+<section class="hero"><div class="eyebrow">GRADE 6 MANDARIN / LESSON 06 · WEATHER</div><h1>IMPOSTER GUARD</h1><div class="subtitle"><ruby>伪人守卫<rt>wěi rén shǒu wèi</rt></ruby> · Classroom entry control</div></section>
+<section id="briefing" class="desk briefing" aria-labelledby="brief-title">
+<h2 id="brief-title" tabindex="-1">GUARD BRIEFING</h2>
+<ol>
+<li><b>Inspect each visitor.</b> Look at the photo, read the verified record, and read the visitor’s Chinese statement. Pinyin is always shown.</li>
+<li><b>Make the call.</b> Choose <b>Admit</b> if the statement fits the record and the Chinese is correct. Choose <b>Block</b> if the facts or grammar are wrong. If the record asks for an exact quote, check every word.</li>
+<li><b>Earn points.</b> Each correct decision earns 1 point. If you turn on <b>English hints</b> at any point during the day, each correct decision that day is worth ½ point.</li>
+<li><b>Unlock the next day.</b> Finish the day with hints off the whole time to advance. If you used hints, replay that day from the first visitor with hints off. There are 5, 7, and 9 visitors across the three days.</li>
+<li><b>Defeat the final boss.</b> After Day 3, match six words to their meanings and rebuild the dialogue and grammar sentences. Clear all three boss tasks to win.</li>
+</ol>
+<form id="start-form" class="name-row">
+<label class="name-field"><span class="label">PLAYER NAME</span><input id="player-name" name="player-name" type="text" required maxlength="40" placeholder="Enter your name"></label>
+<button class="action next" type="submit">Start Day 1 →</button>
+</form>
+</section>
+<div id="play" hidden>
+<div id="days" class="daybar" aria-label="Shifts"></div>
+<section class="desk" aria-label="Checkpoint">
+<div class="deskhead"><strong id="status">● CHECKPOINT OPEN</strong><span id="count"></span></div><div class="progress" aria-hidden="true"><span id="bar"></span></div>
+<div id="game" class="work"><aside class="photo"><p class="label">VISITOR PHOTO</p><div class="frame"><canvas id="portrait" width="330" height="300" aria-label="Illustrated visitor portrait" role="img"></canvas></div><p class="idline" id="visitor"></p></aside>
+<div class="main"><p class="rules"><b>How to play</b> · Read the record and the visitor’s statement. If the meaning matches and the Chinese is correct, admit them. If either is wrong, block them. When the record asks for an exact quote, check every word.</p>
+<div class="entry"><div class="label">VERIFIED RECORD</div><div id="record"></div></div>
+<div class="statement"><div class="label">VISITOR SAYS</div><div id="claim"></div></div>
+<p id="hint-note" class="hint-note" role="status" hidden>Hint round · ½ point per correct decision. Replay this day without hints to advance.</p><div class="actions" id="decisions"><button class="action allow" id="allow">✓ Admit</button><button class="action deny" id="deny">✕ Block</button></div>
+<div id="feedback" class="feedback" aria-live="polite" hidden></div><button id="next" class="action next" hidden>Next visitor →</button></div></div>
+<div id="summary" class="summary" hidden></div></section>
+<div class="bottom"><span>POINTS <strong id="score">0 / 0</strong></span><span id="stopped">IMPOSTERS STOPPED 0</span></div>
+
+</div>
+<section id="boss" class="desk boss" aria-labelledby="boss-title" hidden></section>
+</div>
+<script>
+const words = [
+ ['冷|lěng','cold'],['今天|jīn tiān','today'],['绝对|jué duì','definitely'],['既然|jì rán','since / now that'],['待|dāi','to stay'],['室内|shì nèi','indoors']
+];
+const lines = [
+ ['今天|jīn tiān/真|zhēn/冷。|lěng','It is really cold today.'],
+ ['今天|jīn tiān/绝对|jué duì/比|bǐ/昨天|zuó tiān/还要|hái yào/冷。|lěng','It is definitely even colder today than yesterday.'],
+ ['既然|jì rán/这样，|zhè yàng/我们|wǒ men/今天|jīn tiān/何不|hé bù/待在|dāi zài/室内|shì nèi/呢？|ne','In that case, why don’t we stay indoors today?']
+];
+// Each record gives independent evidence for accepting or blocking the statement.
+const shifts = [
+ {name:'Vocabulary', cases:[
+  ['Temperature sensor · 2°C',lines[0],true,'The sensor shows a cold day.'],
+  ['Today is Tuesday. This jacket was bought on Monday.','我|wǒ/今天|jīn tiān/买了|mǎi le/这件|zhè jiàn/夹克。|jiá kè','I bought this jacket today.',false,'The purchase was yesterday.',['昨天|zuó tiān','yesterday']],
+  ['The jacket was just seen inside the wardrobe.','你的|nǐ de/夹克|jiá kè/绝对|jué duì/在|zài/衣柜里。|yī guì lǐ','Your jacket is definitely in the wardrobe.',true,'The jacket’s location was confirmed.'],
+  ['Location · Inside the classroom. The visitor wants to stay here.','我|wǒ/想|xiǎng/待在|dāi zài/室外。|shì wài','I want to stay outdoors.',false,'The classroom is indoors.',words[5]],
+  ['The park is closed. The group is staying home.','既然|jì rán/公园|gōng yuán/关门了，|guān mén le/我们|wǒ men/就|jiù/待在|dāi zài/家里。|jiā lǐ','Since the park is closed, we’ll stay at home.',true,'The closure is the reason the group is staying home.']
+ ]},
+ {name:'Dialogue', cases:[
+  ['Today · 4°C. The speaker feels cold.',lines[0],true,'The first line expresses how cold the speaker feels.'],
+  ['Today · 8°C  /  Yesterday · 3°C',lines[1],false,'Today is warmer. The visitor reversed the comparison.',['昨天|zuó tiān/比|bǐ/今天|jīn tiān/还要|hái yào/冷。|lěng','Yesterday was even colder than today.']],
+  ['Today · 2°C  /  Yesterday · 7°C',lines[1],true,'2°C is colder than 7°C.'],
+  ['The group wants to avoid the cold. Plan · Play inside.',lines[2],true,'The visitor suggests staying indoors.'],
+  ['The group wants to avoid the cold. Plan · Stay inside.','既然|jì rán/这样，|zhè yàng/我们|wǒ men/今天|jīn tiān/何不|hé bù/待在|dāi zài/室外|shì wài/呢？|ne','In that case, why don’t we stay outdoors today?',false,'The plan says to stay inside.',lines[2]],
+  ['Classroom transcript · Quote Speaker B exactly.','今天|jīn tiān/比|bǐ/昨天|zuó tiān/还要|hái yào/冷。|lěng','Today is even colder than yesterday.',false,'Speaker B also said “definitely.”',lines[1]],
+  ['The class chose to play inside because it is cold outside.','既然|jì rán/外面|wài miàn/很|hěn/冷，|lěng/我们|wǒ men/就在|jiù zài/室内|shì nèi/玩吧。|wán ba','Since it’s cold outside, let’s play indoors.',true,'Both the reason and the plan match.']
+ ]},
+ {name:'Grammar', cases:[
+  ['Today · 36°C. React to the heat.','今天|jīn tiān/真|zhēn/热！|rè','It’s really hot today!',true,'Place the adjective after “really.”'],
+  ['The visitor thinks the cake is delicious. Express that reaction.','这个|zhè ge/蛋糕|dàn gāo/好吃|hǎo chī/真！|zhēn','Intended: This cake is really delicious!',false,'Place “really” before the adjective.',['这个|zhè ge/蛋糕|dàn gāo/真|zhēn/好吃！|hǎo chī','This cake is really delicious!']],
+  ['Wake-up time · 10:30 a.m. React to how late it is.','你|nǐ/起得|qǐ de/真|zhēn/晚！|wǎn','You got up really late!',true,'The adjective “late” follows “really.”'],
+  ['Wednesday · 32°C  /  Monday · 30°C','星期三|xīng qī sān/比|bǐ/星期一|xīng qī yī/还要|hái yào/热。|rè','Wednesday is even hotter than Monday.',true,'The hotter day comes first.'],
+  ['My score · 100  /  Her score · 98','我的|wǒ de/成绩|chéng jì/她的|tā de/比|bǐ/还要|hái yào/高。|gāo','Intended: My score is even higher than hers.',false,'Put the comparison marker before the second score and “even more” after it.',['我的|wǒ de/成绩|chéng jì/比|bǐ/她的|tā de/还要|hái yào/高。|gāo','My score is even higher than hers.']],
+  ['I like playing football more than you do.','我|wǒ/比|bǐ/你|nǐ/还要|hái yào/喜欢|xǐ huan/踢足球。|tī zú qiú','I like playing football even more than you do.',true,'“Like” can also follow this comparison pattern.'],
+  ['Weekend plan · Suggest going to the beach together.','我们|wǒ men/周末|zhōu mò/一起|yì qǐ/何不|hé bù/呢|ne/去|qù/海滩？|hǎi tān','Intended: Why don’t we go to the beach together this weekend?',false,'Keep the suggested action between the two parts of the question.',['我们|wǒ men/周末|zhōu mò/何不|hé bù/一起|yì qǐ/去|qù/海滩|hǎi tān/呢？|ne','Why don’t we go to the beach together this weekend?']],
+  ['There is free time. Suggest giving the activity a try.','既然|jì rán/有|yǒu/时间，|shí jiān/何不|hé bù/试试|shì shi/呢？|ne','Since there’s time, why not give it a try?',true,'The sentence gives a reason and then makes a suggestion.'],
+  ['A jacket costs 8,000 yuan. React to the high price.','那件|nà jiàn/夹克|jiá kè/真|zhēn/便宜！|pián yi','That jacket is really cheap!',false,'The record asks you to react to a high price.',['那件|nà jiàn/夹克|jiá kè/真|zhēn/贵！|guì','That jacket is really expensive!']]
+ ]}
+];
+const $ = id => document.getElementById(id);
+function language([sentence, english]) {
+ const ruby = sentence.split('/').map(part => {
+  const [hanzi, pinyin] = part.split('|');
+  return `<ruby>${hanzi}<rt>${pinyin}</rt></ruby>`;
+ }).join(' ');
+ return `<span class="chinese" lang="zh-Hans">${ruby}</span><span class="translation" lang="en">${english}</span>`;
+}
+let audio;
+function chime(alert = false) {
+ const AudioContext = window.AudioContext || window.webkitAudioContext;
+ if (!AudioContext) return;
+ try {
+  if (!audio) audio = new AudioContext();
+  if (audio.state === 'suspended') audio.resume().catch(() => {});
+  const now = audio.currentTime;
+  const tones = alert ? [[880, 880, 0, .22], [587, 587, .23, .37]] : [[620, 300, 0, .11]];
+  for (const [from, to, delay, duration] of tones) {
+   const tone = audio.createOscillator();
+   const volume = audio.createGain();
+   const at = now + delay;
+   tone.type = 'sine';
+   tone.frequency.setValueAtTime(from, at);
+   tone.frequency.exponentialRampToValueAtTime(to, at + duration);
+   volume.gain.setValueAtTime(.001, at);
+   volume.gain.exponentialRampToValueAtTime(alert ? .16 : .13, at + .012);
+   volume.gain.exponentialRampToValueAtTime(.001, at + duration);
+   tone.connect(volume).connect(audio.destination);
+   tone.start(at);
+   tone.stop(at + duration);
+  }
+ } catch {
+  // Audio availability does not affect the game.
+ }
+}
+document.addEventListener('click', event => {
+ if (event.target.closest('button, summary')) chime();
+}, true);
+
+let hintsOn = false;
+let hintUsed = false;
+let phase = 'briefing';
+let day, position, answered, points, stopped, dayStopped, dayCorrect, active;
+function setHints(shown) {
+ hintsOn = shown;
+ document.body.classList.toggle('show-en', shown);
+ $('english').setAttribute('aria-pressed', shown);
+ $('english').lastElementChild.textContent = shown ? 'ON' : 'OFF';
+}
+$('english').onclick = () => {
+ setHints(!hintsOn);
+ if (phase === 'playing' && hintsOn) {
+  hintUsed = true;
+  score();
+ }
+};
+document.documentElement.lang = 'en';
+let playerName = '';
+$('start-form').onsubmit = event => {
+ event.preventDefault();
+ const input = $('player-name');
+ playerName = input.value.trim();
+ if (!playerName) {
+  input.setCustomValidity('Enter your name.');
+  input.reportValidity();
+  return;
+ }
+ start();
+};
+$('player-name').oninput = event => event.target.setCustomValidity('');
+function start() {
+ day=0; points=0; stopped=0;
+ $('briefing').hidden=true;
+ $('play').hidden=false;
+ startDay();
+}
+function startDay() {
+ phase='playing'; position=0; answered=0; dayCorrect=0; dayStopped=0; hintUsed=hintsOn;
+ render();
+ $('allow').focus({preventScroll:true});
+}
+const invasion = `<span class="intrusion">An imposter has entered your classroom!</span>`;
+function render() {
+ const shift = shifts[day];
+ const raw = shift.cases[position];
+ active = Array.isArray(raw[1])
+  ? {record:raw[0], statement:raw[1], admit:raw[2], explanation:raw[3], correction:raw[4]}
+  : {record:raw[0], statement:[raw[1],raw[2]], admit:raw[3], explanation:raw[4], correction:raw[5]};
+ $('days').innerHTML = shifts.map((item,index) => `<div class="day ${index===day?'active':index<day?'done':''}" ${index===day?'aria-current="step"':''}><strong>DAY 0${index+1} ${index<day?'✓':''}</strong><span>${item.name} · ${item.cases.length}</span></div>`).join('');
+ $('status').textContent = '● CHECKPOINT OPEN';
+ $('count').textContent = `VISITOR ${position+1} / ${shift.cases.length}`;
+ $('bar').style.width = `${100*position/shift.cases.length}%`;
+ const id = shifts.slice(0, day).reduce((sum,s)=>sum+s.cases.length,0)+position+1;
+ $('visitor').textContent = `ENTRY FILE / #${String(id).padStart(3,'0')}`;
+ $('record').textContent = active.record;
+ $('claim').innerHTML = language(active.statement);
+ drawPortrait(id);
+ $('game').hidden=false; $('summary').hidden=true;
+ $('feedback').hidden=true; $('next').hidden=true;
+ $('allow').disabled=false; $('deny').disabled=false;
+ score();
+}
+function score(){
+ $('score').textContent = `${points + dayCorrect*(hintUsed ? .5 : 1)} · ${dayCorrect} / ${answered} correct this attempt`;
+ $('stopped').textContent = `IMPOSTERS STOPPED ${stopped+dayStopped}`;
+ $('hint-note').hidden = !hintUsed;
+}
+function decide(admit){
+ if ($('allow').disabled) return;
+ $('allow').disabled=true; $('deny').disabled=true;
+ const right = admit===active.admit;
+ const breached = admit && !active.admit;
+ answered++;
+ if(right){dayCorrect++;if(!admit)dayStopped++;}
+ score();
+ $('bar').style.width = `${100*(position+1)/shifts[day].cases.length}%`;
+ $('feedback').className = `feedback ${right?'good':''}`;
+ $('feedback').innerHTML = `${breached ? invasion+'<br>' : ''}<strong>${right?'Correct decision':'Check the record'} · ${active.admit?'Admit':'Block'}</strong><br>${active.explanation}${active.correction?language(active.correction):''}`;
+ if (breached) chime(true);
+ $('feedback').hidden=false;
+ $('next').textContent = position+1===shifts[day].cases.length?'Finish shift →':'Next visitor →';
+ $('next').hidden=false;
+ $('next').focus({preventScroll:true});
+}
+$('allow').onclick=()=>decide(true);
+$('deny').onclick=()=>decide(false);
+$('next').onclick=()=>{
+ position++;
+ if(position<shifts[day].cases.length){render();$('allow').focus({preventScroll:true});return;}
+ finish();
+};
+function finish(){
+ phase='summary';
+ const final=day===shifts.length-1;
+ const earned=dayCorrect*(hintUsed ? .5 : 1);
+ $('status').textContent=hintUsed?'● SHIFT FAILED':final?'● ALL SHIFTS COMPLETE':'● SHIFT COMPLETE';
+ $('count').textContent=`DAY 0${day+1}`;
+ $('game').hidden=true;
+ const summary=$('summary');
+ summary.hidden=false;
+ const heading=hintUsed?'SHIFT FAILED':final?'CHECKPOINT CLOSED':`DAY 0${day+1} COMPLETE`;
+ const result=hintUsed
+  ? `<p class="intrusion">${invasion}</p><p>English hints were used. Turn them off and replay this day from the first visitor to continue.</p>`
+  : final ? `<p>Total points: ${points+earned}.</p>` : '';
+ const action=hintUsed?'Turn hints off & replay':final?'Start final boss':`Start day ${day+2}`;
+ summary.innerHTML=`<h2 tabindex="-1" id="shift-title">${heading}</h2>${result}<p>${dayCorrect} / ${shifts[day].cases.length} correct decisions · ${earned} points this attempt.</p><div class="actions"><button class="action next" id="continue">${action} →</button></div>`;
+ if (hintUsed) chime(true);
+ $('continue').onclick=()=>{
+  if(hintUsed){setHints(false);startDay();return;}
+  points+=earned;
+  stopped+=dayStopped;
+  if(final){startBoss();return;}
+  day++;
+  startDay();
+ };
+ $('shift-title').focus();
+}
+const grammarRounds = [
+ ['这个|zhè ge/蛋糕|dàn gāo/真|zhēn/好吃。|hǎo chī','This cake is really delicious.'],
+ ['星期三|xīng qī sān/比|bǐ/星期一|xīng qī yī/还要|hái yào/热。|rè','Wednesday is even hotter than Monday.'],
+ ['既然|jì rán/有时间，|yǒu shí jiān/何不|hé bù/试试|shì shi/呢？|ne','Since there is time, why not give it a try?']
+];
+const matchColors=['#ffd37a','#8df1cf','#a9b9ff','#ffa7aa','#e4b1f5','#a8d7ff'];
+let matches, meaningOrder, selectedWord, checked, sentenceIndex, sentenceOrder, cardOrder;
+function shuffled(count) {
+ const order=Array.from({length:count},(_,index)=>index);
+ for(let end=count-1;end>0;end--){
+  const other=Math.floor(Math.random()*(end+1));
+  [order[end],order[other]]=[order[other],order[end]];
+ }
+ if(order.every((value,index)=>value===index)) order.push(order.shift());
+ return order;
+}
+function startBoss(){
+ phase='boss';
+ setHints(false);
+ $('english').disabled=true;
+ $('play').hidden=true;
+ $('boss').hidden=false;
+ matches=new Map();
+ meaningOrder=shuffled(words.length);
+ selectedWord=null;
+ checked=false;
+ renderMatching();
+ $('boss-title').focus();
+}
+function bossPanel(step,title,instructions,content){
+ $('boss').innerHTML=`<div class="deskhead"><strong>◆ FINAL BOSS</strong><span>${step} / 3</span></div><div class="boss-body"><h2 id="boss-title" tabindex="-1">${title}</h2><p>${instructions}</p>${content}</div>`;
+}
+function renderMatching(){
+ bossPanel(1,'WORD BANK','Tap a Chinese word, then tap its English meaning to connect them. Select a word again to change its match.',`
+ <div id="match-board" class="match-board">
+  <svg id="match-lines" class="match-lines" aria-hidden="true"></svg>
+  <div class="match-col">${words.map((word,i)=>`<button class="match-card" id="word-${i}" aria-pressed="false">${language(word)}</button>`).join('')}</div>
+  <div class="match-col">${meaningOrder.map(i=>`<button class="match-card" id="meaning-${i}">${words[i][1]}</button>`).join('')}</div>
+ </div>
+ <div class="actions"><button class="action next" id="match-check">Check matches</button></div>
+ <p class="boss-feedback" id="boss-feedback" role="status"></p>`);
+ words.forEach((_,i)=>{
+  $('word-'+i).onclick=()=>{
+   selectedWord=i;
+   updateMatching();
+   $('meaning-'+meaningOrder[0]).focus({preventScroll:true});
+  };
+  $('meaning-'+i).onclick=()=>{
+   if(selectedWord===null){
+    $('boss-feedback').textContent='Select a Chinese word first.';
+    return;
+   }
+   for(const [word,meaning] of matches) if(meaning===i) matches.delete(word);
+   matches.set(selectedWord,i);
+   selectedWord=null;
+   checked=false;
+   updateMatching();
+   $('boss-feedback').textContent=`${matches.size} / ${words.length} words matched.`;
+  };
+ });
+ $('match-check').onclick=()=>{
+  checked=true;
+  updateMatching();
+  if(matches.size<words.length){
+   $('boss-feedback').textContent='Connect all six words before checking.';
+  }else if([...matches].every(([word,meaning])=>word===meaning)){
+   $('boss-feedback').textContent='All six words are correct.';
+   $('match-check').textContent='Original dialogue →';
+   $('match-check').onclick=()=>openSentence(0);
+   for(let i=0;i<words.length;i++){
+    $('word-'+i).disabled=true;
+    $('meaning-'+i).disabled=true;
+   }
+  }else{
+   $('boss-feedback').textContent='Try again. Change the matches marked in pink.';
+  }
+ };
+}
+function updateMatching(){
+ words.forEach((_,i)=>{
+  const word=$('word-'+i);
+  word.setAttribute('aria-pressed', i===selectedWord);
+  word.classList.toggle('linked', matches.has(i));
+  word.classList.toggle('wrong', checked && matches.has(i) && matches.get(i)!==i);
+  const meaning=$('meaning-'+i);
+  meaning.classList.toggle('linked',[...matches.values()].includes(i));
+ });
+ drawConnections();
+}
+function drawConnections(){
+ const board=$('match-board');
+ if(!board) return;
+ const bounds=board.getBoundingClientRect();
+ $('match-lines').innerHTML=[...matches].map(([word,meaning])=>{
+  const from=$('word-'+word).getBoundingClientRect();
+  const to=$('meaning-'+meaning).getBoundingClientRect();
+  const color=checked && word!==meaning?'#ffa7aa':matchColors[word];
+  return `<line x1="${from.right-bounds.left}" y1="${from.top+from.height/2-bounds.top}" x2="${to.left-bounds.left}" y2="${to.top+to.height/2-bounds.top}" stroke="${color}"/>`;
+ }).join('');
+}
+window.addEventListener('resize',drawConnections);
+function openSentence(index){
+ sentenceIndex=index;
+ sentenceOrder=[];
+ const [target, meaning]=[...lines,...grammarRounds][index];
+ const tokens=target.split('/');
+ cardOrder=shuffled(tokens.length);
+ const grammar=index>=lines.length;
+ const round=grammar?index-lines.length:index;
+ bossPanel(grammar?3:2,grammar?'GRAMMAR GUIDE':'ORIGINAL DIALOGUE',
+ `Sentence ${round+1} / 3 · Tap the cards in order. Tap a placed card to remove it.`,`
+ <p><strong>Build this sentence:</strong> ${meaning}</p>
+ <div id="sentence-tray" class="tray" aria-label="Your sentence"></div>
+ <div id="word-pool" class="word-pool" aria-label="Scrambled words">${cardOrder.map(i=>`<button id="pool-${i}" class="word-card">${language([tokens[i],''])}</button>`).join('')}</div>
+ <div class="actions"><button class="action next" id="sentence-check">Check sentence</button></div>
+ <p class="boss-feedback" id="boss-feedback" role="status"></p>`);
+ function renderTray(){
+  $('sentence-tray').innerHTML=sentenceOrder.map(i=>`<button id="placed-${i}" class="word-card">${language([tokens[i],''])}</button>`).join('');
+  for(const i of cardOrder) $('pool-'+i).disabled=sentenceOrder.includes(i);
+  for(const i of sentenceOrder) $('placed-'+i).onclick=()=>{
+   sentenceOrder=sentenceOrder.filter(item=>item!==i);
+   $('boss-feedback').textContent='';
+   renderTray();
+   $('pool-'+i).focus({preventScroll:true});
+  };
+ }
+ for(const i of cardOrder) $('pool-'+i).onclick=()=>{
+  sentenceOrder.push(i);
+  $('boss-feedback').textContent='';
+  renderTray();
+  $('placed-'+i).focus({preventScroll:true});
+ };
+ $('sentence-check').onclick=()=>{
+  if(sentenceOrder.length!==tokens.length){
+   $('boss-feedback').textContent='Use every word card.';
+  }else if(sentenceOrder.some((i,position)=>tokens[i]!==tokens[position])){
+   $('boss-feedback').textContent='Check the word order and try again.';
+  }else{
+   $('boss-feedback').textContent='Correct sentence.';
+   for(const i of sentenceOrder) $('placed-'+i).disabled=true;
+   const last=sentenceIndex===lines.length+grammarRounds.length-1;
+   $('sentence-check').textContent=last?'See victory results →':sentenceIndex===lines.length-1?'Grammar guide →':'Next sentence →';
+   $('sentence-check').onclick=last?showVictory:()=>openSentence(sentenceIndex+1);
+  }
+ };
+ $('boss-title').focus({preventScroll:true});
+}
+function showVictory(){
+ phase='victory';
+ $('boss').innerHTML=`<div class="victory">
+ <h2 id="boss-title" tabindex="-1" lang="zh-Hans"></h2>
+ <p>All three days and the final boss cleared.</p>
+ <p>${points} / 21 points · ${stopped} imposters stopped</p>
+ <div class="actions"><button class="action next" id="play-again">Play again →</button></div></div>`;
+ $('boss-title').textContent=`${playerName}，恭喜你守卫了学校！🏆`;
+ $('boss-title').focus();
+ $('play-again').onclick=()=>{
+  phase='briefing';
+  $('boss').hidden=true;
+  $('briefing').hidden=false;
+  $('english').disabled=false;
+  $('player-name').focus();
+ };
+}
+function drawPortrait(id) {
+ const ctx=$('portrait').getContext('2d');
+ if (!ctx) return;
+ const pick=(list, factor=1)=>list[(id*factor)%list.length];
+ const skin=pick(['#cc9075','#e0a17e','#9e634f','#dcb196','#b97c57','#8b5544','#e5b396']);
+ const hair=pick(['#272237','#271c27','#542f34','#27242f','#593d45','#493238'],5);
+ const coat=pick(['#526692','#697559','#a06365','#4e727d','#876293','#9b654b','#435a81'],3);
+ const bg=pick(['#746b8a','#496d77','#8a686f','#687866','#78647d','#555b7d','#876c62'],2);
+ const ellipse=(x,y,rx,ry,color)=>{ctx.fillStyle=color;ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fill();};
+ const shape=(color,path)=>{ctx.fillStyle=color;ctx.beginPath();path(ctx);ctx.closePath();ctx.fill();};
+ const gradient=ctx.createLinearGradient(0,0,330,300);gradient.addColorStop(0,bg);gradient.addColorStop(1,'#252637');
+ ctx.fillStyle=gradient;ctx.fillRect(0,0,330,300);
+ ctx.strokeStyle='#ffffff19';
+ for(let x=12;x<330;x+=23){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,300);ctx.stroke();}
+ for(let y=14;y<300;y+=23){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(330,y);ctx.stroke();}
+ ellipse(165,123,91,91,'#ffffff15');
+ if(id%3===0)ellipse(165,148,70,94,hair);
+ ellipse(165,289,114,63,coat);
+ ctx.fillStyle=skin;ctx.fillRect(143,179,44,58);
+ ellipse(165,131,62,72,hair);
+ ellipse(107,146,11,16,skin);ellipse(223,146,11,16,skin);
+ ellipse(165,139,54,67,skin);
+ shape(hair,p=>{p.moveTo(111,136);p.quadraticCurveTo(93,59,164,58);p.quadraticCurveTo(231,55,219,136);p.quadraticCurveTo(199,115,194,90+id%4*7);p.quadraticCurveTo(165,122,113,119);});
+ if(id%4===0)ellipse(190,56,26,22,hair);
+ const eyeY=137+id%4;
+ ellipse(143,eyeY,4,5,'#252332');ellipse(187,eyeY,4,5,'#252332');
+ ctx.strokeStyle='#593641';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(165,eyeY+4);ctx.lineTo(161,eyeY+18);ctx.lineTo(168,eyeY+19);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(151,178);ctx.quadraticCurveTo(165,id%2?188:181,179,177);ctx.stroke();
+ if(id%3===1){
+  ctx.strokeStyle='#353044';ctx.lineWidth=3;
+  ctx.strokeRect(127,eyeY-8,31,19);ctx.strokeRect(172,eyeY-8,31,19);
+  ctx.beginPath();ctx.moveTo(158,eyeY);ctx.lineTo(172,eyeY);ctx.stroke();
+ }
+ shape('#ffffff30',p=>{p.moveTo(140,220);p.lineTo(165,244);p.lineTo(190,220);p.lineTo(178,262);p.lineTo(152,262);});
+ ctx.fillStyle='#ffffff95';ctx.font='12px monospace';ctx.fillText('ID '+String(id).padStart(3,'0'),16,280);
+}
+</script></body></html>
